@@ -1,0 +1,33 @@
+# Encryption Side
+def caesar_encrypt(plaintext, key):
+    ciphertext = ""
+    for char in plaintext:
+        if char.isalpha():
+            shift = ord(key) - ord('a')
+            if char.isupper():
+                ciphertext += chr((ord(char) - ord('A') + shift) % 26 + ord('A'))
+            else:
+                ciphertext += chr((ord(char) - ord('a') + shift) % 26 + ord('a'))
+        else:
+            ciphertext += char
+    return ciphertext
+
+
+def rail_fence_encrypt(plaintext, rails):
+    fence = [[] for i in range(rails)]
+    rail = 0
+    direction = 1
+
+    for char in plaintext:
+        fence[rail].append(char)
+        rail += direction
+        if rail == rails - 1 or rail == 0:
+            direction = -direction
+
+    ciphertext = ''
+    for rail in fence:
+        ciphertext += ''.join(rail)
+
+    return ciphertext
+
+
